@@ -15,3 +15,5 @@ client.connect((err) => {
     console.log('connected!');
   }
 });
+
+// client.query()
