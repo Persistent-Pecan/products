@@ -1,4 +1,4 @@
--- psql postgres
+-- cd server/db
 -- psql -d productdb  -a -f schema.sql
 --drop database if exists productdb;
 --create database productdb;
@@ -55,21 +55,21 @@ create table photos (
 );
 
 truncate products cascade;
-\copy products from '../data/product.csv' delimiter ',' csv header;
+\copy products from '../../data/product.csv' delimiter ',' csv header;
 
 truncate features cascade;
-\copy features from '../data/features.csv' delimiter ',' csv header;
+\copy features from '../../data/features.csv' delimiter ',' csv header;
 
 truncate related cascade;
-\copy related from '../data/related.csv' delimiter ',' csv header;
+\copy related from '../../data/related.csv' delimiter ',' csv header;
 
 truncate styles cascade;
-\copy styles from '../data/styles.csv' delimiter ',' csv header;
+\copy styles from '../../data/styles.csv' delimiter ',' csv header;
 
 truncate photos cascade;
-\copy photos from '../data/photos.csv' delimiter ',' csv header;
+\copy photos from '../../data/photos.csv' delimiter ',' csv header;
 
-update styles set sale_price = 0 where sale_price = 'null';
+update styles set sale_price = null where sale_price = 'null';
 alter table styles alter column sale_price type integer USING sale_price::integer;
 delete from styles where original_price < sale_price;
 
