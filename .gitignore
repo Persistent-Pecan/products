@@ -2,4 +2,3 @@ node_modules/
 .DS_Store
 data/
 server/config.js
-server/config.js

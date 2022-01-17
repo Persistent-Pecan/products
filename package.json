@@ -21,7 +21,8 @@
   "dependencies": {
     "express": "^4.17.2",
     "mongoose": "^6.1.6",
-    "pg": "^8.7.1"
+    "pg": "^8.7.1",
+    "postgres": "^1.0.2"
   },
   "devDependencies": {
     "eslint": "^8.6.0",

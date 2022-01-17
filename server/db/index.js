@@ -1,11 +1,11 @@
 const { Client } = require('pg');
-const config = require('./config');
+const config = require('../config.js');
 
 const client = new Client({
-  host: 'localhost',
   user: config.user,
-  password: config.password,
+  host: 'localhost',
   database: 'productdb',
+  password: config.password,
 });
 
 client.connect((err) => {
@@ -15,3 +15,5 @@ client.connect((err) => {
     console.log('connected!');
   }
 });
+
+module.exports.client = client;
