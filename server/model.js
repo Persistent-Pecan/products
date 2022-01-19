@@ -12,9 +12,9 @@ module.exports = {
       'description', p.description,
       'category', p.category,
       'default_price', p.default_price)) from (
-        select * from products where default_price > 0 and product_id > ${startIndex} limit ${count}
+        select product_id, name, slogan, description, category, default_price from products where default_price > 0 and product_id > ${startIndex} limit ${count}
       ) p`;
-    db.client.query(query).then(
+    db.pool.query(query).then(
       (results) => {
         res.status(200).send(results.rows[0].json_agg);
       },
@@ -35,9 +35,9 @@ module.exports = {
         select feature, value from features where product_id = t.product_id
       )features)
     )from (
-      select p.* from products p where p.product_id = ${req.params.product_id} and default_price > 0
+      select p.product_id, p.name, p.slogan, p.description, p.category, p.default_price from products p where p.product_id = ${req.params.product_id} and default_price > 0
     ) t`;
-    db.client.query(query).then(
+    db.pool.query(query).then(
       (results) => {
         res.status(200).send(results.rows[0].json_build_object);
       },
@@ -47,7 +47,7 @@ module.exports = {
   },
 
   getProductStyles: (req, res) => {
-    const query = `select row_to_json(t) from (
+    const query = `
       select
       product_id,
       json_agg(json_build_object(
@@ -67,11 +67,11 @@ module.exports = {
         )
       )) as results
       from styles s
-      where product_id = ${req.params.product_id} and original_price > 0 group by product_id) t`;
+      where product_id = ${req.params.product_id} and original_price > 0 group by product_id`;
 
-    db.client.query(query).then(
+    db.pool.query(query).then(
       (results) => {
-        res.status(200).send(results.rows[0].row_to_json);
+        res.status(200).send(results.rows[0]);
       },
     ).catch(
       (err) => res.send(err.stack),
@@ -83,7 +83,8 @@ module.exports = {
     from related
     join products on products.product_id = related.product_id
     where products.product_id = ${req.params.product_id}`;
-    db.client.query(query).then(
+
+    db.pool.query(query).then(
       (results) => {
         res.status(200).send(results.rows[0].json_agg);
       },
