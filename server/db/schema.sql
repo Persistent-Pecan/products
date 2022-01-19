@@ -1,9 +1,3 @@
--- cd server/db
--- psql -d productdb  -a -f schema.sql
---drop database if exists productdb;
---create database productdb;
-
---psql -d productdb -U username -W
 \connect productdb;
 
 drop table if exists products cascade;
@@ -73,8 +67,17 @@ update styles set sale_price = null where sale_price = 'null';
 alter table styles alter column sale_price type integer USING sale_price::integer;
 delete from styles where original_price < sale_price;
 
---COPY 1000011
---COPY 2219279
---COPY 4508263
---COPY 1958102
---COPY 5655463
+-- create index for styles
+create index original_price_idx on styles(original_price);
+create index product_id_idx on styles (product_id);
+create index style_id_idx on photos (style_id);
+
+-- create index for products
+create index default_price_idx on products(default_price);
+
+-- create index for single product
+create index product_feature_idx on features(product_id);
+
+-- create index for related product
+create index product_related_idx on related(product_id);
+

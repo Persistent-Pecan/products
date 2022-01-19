@@ -1,4 +1,3 @@
--- psql -d productdb  -a -f query.sql
 \timing
 
 -- get all products, by default, page = 1 count = 5;
@@ -11,7 +10,8 @@ select json_agg(json_build_object(
   'default_price', p.default_price)) from (
     select * from products where default_price > 0 limit 5
   ) p;
---Time: 17.094 ms
+--Time: 17.094 ms (before)
+-- Time: 3.834 ms (after)
 
 -- get product by product_id
 select json_build_object(
@@ -28,14 +28,16 @@ select json_build_object(
   select p.* from products p where p.product_id = 63617 and default_price > 0
 ) t;
 
---Time: 281.384 ms
+--Time: 281.384 ms (before)
+--Time: 2.124 ms (after)
 
 -- get related
 select json_agg(related.related_id)
 from related
 join products on products.product_id = related.product_id
 where products.product_id = 63609;
--- --Time: 793.577 ms
+--Time: 793.577 ms (before)
+--Time: 2.324 ms (after)
 
 --get styles by product_id
 select row_to_json(t) from (
@@ -60,4 +62,5 @@ json_agg(json_build_object(
 from styles s
 where product_id = 63449 and original_price > 0 group by product_id) t;
 
--- Time: 1936.359 ms (00:01.936)
+-- Time: 1936.359 ms (00:01.936) (before)
+-- Time: 2.801 ms (after)
