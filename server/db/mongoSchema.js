@@ -56,6 +56,11 @@ const stylesSchema = new Schema({
       url: { type: String },
     },
   ],
+  sku: {
+    id: { type: Number, unique: true },
+    quantity: { type: Number, require() { return this.quantity >= 0; } },
+    size: { type: String },
+  },
 
 });
 

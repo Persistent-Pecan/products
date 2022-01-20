@@ -64,6 +64,18 @@ module.exports = {
               'url', photos.url
             )) as photos from photos where photos.style_id = s.style_id
           ) as photos
+        ),
+        'sku', (
+          select coalesce(skus, '{}')
+          from (
+            select json_object_agg(
+              id,
+              json_build_object(
+                'quantity', quantity,
+                'size', size
+              )
+            ) as skus from skus where skus.style_id = s.style_id
+          ) as skus
         )
       )) as results
       from styles s

@@ -3,3 +3,5 @@ node_modules/
 data/
 server/config.js
 coverage/
+server/db/query.sql
+newrelic_agent.log
