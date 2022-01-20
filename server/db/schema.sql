@@ -5,6 +5,7 @@ drop table if exists features cascade;
 drop table if exists related cascade;
 drop table if exists styles cascade;
 drop table if exists photos cascade;
+drop table if exists skus cascade;
 
 create table products (
   product_id int not null primary key,
@@ -48,6 +49,14 @@ create table photos (
   foreign key(style_id) references styles(style_id)
 );
 
+create table skus (
+  id int not null primary key,
+  style_id int,
+  size varchar(10),
+  quantity int check(quantity >= 0),
+  foreign key(style_id) references styles(style_id)
+);
+
 truncate products cascade;
 \copy products from '../../data/product.csv' delimiter ',' csv header;
 
@@ -62,6 +71,9 @@ truncate styles cascade;
 
 truncate photos cascade;
 \copy photos from '../../data/photos.csv' delimiter ',' csv header;
+
+truncate skus cascade;
+\copy skus from '../../data/skus.csv' delimiter ',' csv header;
 
 update styles set sale_price = null where sale_price = 'null';
 alter table styles alter column sale_price type integer USING sale_price::integer;
@@ -80,4 +92,7 @@ create index product_feature_idx on features(product_id);
 
 -- create index for related product
 create index product_related_idx on related(product_id);
+
+-- create index for skus
+create index sku_style_idx on skus(style_id);
 

@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "start": "nodemon ./server/index.js"
+    "start": "nodemon -r newrelic ./server/index.js",
+    "server": "node ./server/index.js",
+    "build": "pm2 start server/index.js"
   },
   "repository": {
     "type": "git",
@@ -21,6 +23,7 @@
   "dependencies": {
     "express": "^4.17.2",
     "mongoose": "^6.1.7",
+    "newrelic": "^8.7.1",
     "pg": "^8.7.1",
     "postgres": "^1.0.2"
   },

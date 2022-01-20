@@ -1,4 +1,5 @@
 /* eslint-disable import/no-unresolved */
+// k6 run k6/k6_related_test.js
 import http from 'k6/http';
 import { check } from 'k6';
 

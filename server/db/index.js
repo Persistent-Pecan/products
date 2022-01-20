@@ -3,7 +3,7 @@ const config = require('../config.js');
 
 const pool = new Pool({
   user: config.user,
-  host: 'localhost',
+  host: '54.173.94.167',
   database: 'productdb',
   password: config.password,
 });
