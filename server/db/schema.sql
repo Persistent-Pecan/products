@@ -57,28 +57,6 @@ create table skus (
   foreign key(style_id) references styles(style_id)
 );
 
-truncate products cascade;
-\copy products from '../../data/product.csv' delimiter ',' csv header;
-
-truncate features cascade;
-\copy features from '../../data/features.csv' delimiter ',' csv header;
-
-truncate related cascade;
-\copy related from '../../data/related.csv' delimiter ',' csv header;
-
-truncate styles cascade;
-\copy styles from '../../data/styles.csv' delimiter ',' csv header;
-
-truncate photos cascade;
-\copy photos from '../../data/photos.csv' delimiter ',' csv header;
-
-truncate skus cascade;
-\copy skus from '../../data/skus.csv' delimiter ',' csv header;
-
-update styles set sale_price = null where sale_price = 'null';
-alter table styles alter column sale_price type integer USING sale_price::integer;
-delete from styles where original_price < sale_price;
-
 -- create index for styles
 create index original_price_idx on styles(original_price);
 create index product_id_idx on styles (product_id);
