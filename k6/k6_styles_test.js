@@ -13,7 +13,7 @@ export const options = {
 
 export default function () {
   const randProduct = Math.floor(Math.random() * 1000010);
-  const response = http.get(`http://localhost:3000/products/${randProduct}/styles`);
+  const response = http.get(`http://34.201.65.252/products/${randProduct}/styles`);
   check(response, {
     'is status 200': (r) => r.status === 200,
     'transaction time < 25ms': (r) => r.timings.duration < 25,
