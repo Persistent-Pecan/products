@@ -3,9 +3,9 @@ const config = require('../config.js');
 
 const pool = new Pool({
   user: config.user,
-  host: '54.173.94.167',
+  host: config.host,
   password: config.password,
-  database: 'productdb',
+  database: config.database,
   port: 5432,
   max: 20,
   idleTimeoutMillis: 30000,
