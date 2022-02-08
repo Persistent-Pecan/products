@@ -15,3 +15,15 @@ This project has been deployed on AWS:EC2. To run it locally, you need to connec
 + **/products/:product_id**  -get the product info by specific product_id
 + **/products/:product_id/styles**  -get the styles and photos from the product by product_id
 + **/products/:product_id/related**  -get related products of this specific product_id
+
+## Dependencies 
+- [Node.js](https://nodejs.org/en) 
+- [Express](https://expressjs.com/)
+- [PostgreSQL](https://www.postgresql.org/) 
+- [Frisby](https://docs.frisbyjs.com/)
+- [k6](https://k6.io/stress-testing/)
+- [Loader.io](https://loader.io/)
+- [AWS EC2](https://aws.amazon.com/ec2/)
+- [NGINX](https://nginx.org/en/)
+- [New Relic](https://newrelic.com/)
+- [AWS Cloudwatch](https://aws.amazon.com/cloudwatch/)
